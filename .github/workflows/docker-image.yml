@@ -20,5 +20,5 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag castellodev/echo-node:github
     - name: Log into Docker
-      run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PAT $DOCKER_HOST
+      run: echo $DOCKER_HUB_PAT > ~/docker_pass.txt && cat ~/docker_pass.txt | docker login --username castellodev --password-stdin
     - run: docker push castellodev/echo-node:github

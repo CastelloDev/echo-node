@@ -1,2 +1,2 @@
 # echo-node
-a node server with an echo home endpoint
+a node server with a heartbeat endpoint

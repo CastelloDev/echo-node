@@ -18,6 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag castellodev/echo-node:$(date +%s)
+      run: docker build . --file Dockerfile --tag castellodev/echo-node:$(GITHUB_SHA)
     - run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PAT $DOCKER_HOST
-    - run: docker push castellodev/echo-node:$(date +%s)
+    - run: docker push castellodev/echo-node:$(GITHUB_SHA)

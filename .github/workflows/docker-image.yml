@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-18.04
+    env:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PAT: ${{ secrets.DOCKER_HUB_PAT }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag castellodev/echo-node:$(date +%s)
+    - run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PAT $DOCKER_HOST
+    - run: docker push castellodev/echo-node:$(date +%s)

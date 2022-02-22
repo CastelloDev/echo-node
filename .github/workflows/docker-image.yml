@@ -19,8 +19,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag castellodev/echo-node:github
-    - name: Log out of Docker
-      run: docker logout
     - name: Log into Docker
-      run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PAT $DOCKER_HOST
+    - run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PAT $DOCKER_HOST
     - run: docker push castellodev/echo-node:github

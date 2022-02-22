@@ -13,12 +13,12 @@ jobs:
 
     runs-on: ubuntu-18.04
     env:
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PAT: ${{ secrets.DOCKER_HUB_PAT }}
+      DO_USERNAME: ${{ secrets.D_USERNAME }}
+      DO_PASS: ${{ secrets.D_PASS }}
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag castellodev/echo-node:github
     - name: Log into Docker
-      run: echo $DOCKER_HUB_PAT > ~/docker_pass.txt && cat ~/docker_pass.txt | docker login --username castellodev --password-stdin
+      run: echo $DO_PASS > ~/docker_pass.txt && cat ~/docker_pass.txt | docker login --username $DO_USERNAME --password-stdin
     - run: docker push castellodev/echo-node:github
